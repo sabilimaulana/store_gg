@@ -1,4 +1,4 @@
-function CheckOut() {
+function Checkout() {
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -134,4 +134,4 @@ function CheckOut() {
   );
 }
 
-export default CheckOut;
+export default Checkout;
