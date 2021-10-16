@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": ["plugin:react/recommended", "airbnb", "plugin:import/typescript"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -20,6 +20,18 @@
     ],
     "react/react-in-jsx-scope": "off",
     "quotes": ["error", "double"],
-    "react/no-unknown-property": [0, { "ignore": ["path"] }]
+    "quote-props": ["error", "consistent"],
+    "react/no-unknown-property": [0, { "ignore": ["path"] }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "jsx-a11y/anchor-is-valid": "off"
   }
 }
