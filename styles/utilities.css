@@ -4,11 +4,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-html,
-body {
-  overflow: hidden;
-}
-
 /* Container */
 .container-fluid {
   padding-right: 16px;
