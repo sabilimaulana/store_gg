@@ -55,7 +55,7 @@ function SignUpPhoto() {
             <div className="button-group d-flex flex-column mx-auto">
               <a
                 className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                href="./sign-up-photo-success.html"
+                href="/sign-up-photo-success"
                 role="button"
               >
                 Create My Account
@@ -63,7 +63,7 @@ function SignUpPhoto() {
 
               <a
                 className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
-                href="/#"
+                href="/"
                 role="button"
               >
                 Terms & Conditions
