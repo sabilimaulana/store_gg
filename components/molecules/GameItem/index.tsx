@@ -17,7 +17,7 @@ function GameItem(props: GameItemProps) {
 
   return (
     <div className="featured-game-card position-relative">
-      <Link href="detail">
+      <Link href="/detail">
         <a>
           <div className="blur-sharp">
             <Image

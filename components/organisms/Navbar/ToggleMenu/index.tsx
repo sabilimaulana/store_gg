@@ -6,7 +6,7 @@ function ToggleMenu() {
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
       // eslint-disable-next-line jsx-a11y/aria-props
-      aria-controlsName="navbarNav"
+      // aria-controlsname="navbarNav"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
