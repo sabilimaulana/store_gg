@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface GameItemProps {
+export interface GameItemProps {
   title: string;
   category: string;
   thumbnail:
-    | "Thumbnail-1"
-    | "Thumbnail-2"
-    | "Thumbnail-3"
-    | "Thumbnail-4"
-    | "Thumbnail-5";
+    | "/img/Thumbnail-1.png"
+    | "/img/Thumbnail-2.png"
+    | "/img/Thumbnail-3.png"
+    | "/img/Thumbnail-4.png"
+    | "/img/Thumbnail-5.png";
 }
 
 function GameItem(props: GameItemProps) {
@@ -21,11 +21,11 @@ function GameItem(props: GameItemProps) {
         <a>
           <div className="blur-sharp">
             <Image
-              src={`/img/${thumbnail}.png`}
+              src={thumbnail}
               className="thumbnail"
               width={205}
               height={270}
-              alt=""
+              alt="thumbnail"
             />
           </div>
           <div className="cover position-absolute bottom-0 m-32">
