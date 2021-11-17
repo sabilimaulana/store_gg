@@ -4,7 +4,7 @@ import { getFeaturedGame } from "../../../services/player";
 import GameItem from "../../molecules/GameItem";
 
 function FeaturedGame() {
-  const [gameList, setGameList] = useState([]);
+  const [gameList, setGameList] = useState<GameItemTypes[]>([]);
 
   const getFeaturedGameList = useCallback(async () => {
     const data = await getFeaturedGame();
