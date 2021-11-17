@@ -33,6 +33,7 @@
       }
     ],
     "jsx-a11y/anchor-is-valid": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "no-console": "off"
   }
 }

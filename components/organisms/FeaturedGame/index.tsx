@@ -1,6 +1,26 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import GameItem from "../../molecules/GameItem";
 
 function FeaturedGame() {
+  const [gameList, setGameList] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          "https://sbl-store-gg.herokuapp.com/api/v1/players/landingpage"
+        );
+
+        setGameList(response?.data?.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, []);
+
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">
@@ -13,31 +33,14 @@ function FeaturedGame() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          <GameItem
-            title="Super Mechs"
-            category="Mobile"
-            thumbnail="/img/Thumbnail-1.png"
-          />
-          <GameItem
-            title=" Call of Duty: Modern"
-            category="Mobile"
-            thumbnail="/img/Thumbnail-2.png"
-          />
-          <GameItem
-            title="Mobile Legends"
-            category="Mobile"
-            thumbnail="/img/Thumbnail-3.png"
-          />
-          <GameItem
-            title="Clash of Clans"
-            category="Mobile"
-            thumbnail="/img/Thumbnail-4.png"
-          />
-          <GameItem
-            title="Valorant"
-            category="Desktop"
-            thumbnail="/img/Thumbnail-5.png"
-          />
+          {gameList.map((game) => (
+            <GameItem
+              key={game?._id}
+              title={game?.name}
+              category={game?.category?.name}
+              thumbnail={`https://sbl-store-gg.herokuapp.com/uploads/${game.thumbnail}`}
+            />
+          ))}
         </div>
       </div>
     </section>
