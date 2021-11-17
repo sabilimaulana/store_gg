@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import { getFeaturedGame } from "../../../services/player";
 import GameItem from "../../molecules/GameItem";
 
 function FeaturedGame() {
   const [gameList, setGameList] = useState([]);
 
+  const getFeaturedGameList = useCallback(async () => {
+    const data = await getFeaturedGame();
+    setGameList(data);
+  }, [getFeaturedGame]);
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(
-          "https://sbl-store-gg.herokuapp.com/api/v1/players/landingpage"
-        );
-
-        setGameList(response?.data?.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getData();
+    getFeaturedGameList();
   }, []);
 
   return (
