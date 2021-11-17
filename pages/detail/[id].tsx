@@ -1,10 +1,21 @@
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Footer from "../../components/organisms/Footer";
 import Navbar from "../../components/organisms/Navbar";
 import TopUpForm from "../../components/organisms/TopUpForm";
 import TopUpItem from "../../components/organisms/TopUpItem";
 
 function Detail() {
-  //  <!-- Detail Content -->
+  const { query, isReady } = useRouter();
+
+  useEffect(() => {
+    if (isReady) {
+      console.log("Router sudah tersedia", query?.id);
+    } else {
+      console.log("Router belum tersedia");
+    }
+  }, [isReady]);
+
   return (
     <>
       <Navbar />
