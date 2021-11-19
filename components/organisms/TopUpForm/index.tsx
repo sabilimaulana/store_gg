@@ -1,7 +1,16 @@
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
-function TopUpForm() {
+interface TopUpFormProps {
+  nominals: any[];
+  payments: any[];
+}
+
+function TopUpForm(props: TopUpFormProps) {
+  const { nominals, payments } = props;
+
+  console.log(payments);
+
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">
@@ -28,19 +37,15 @@ function TopUpForm() {
           Nominal Top Up
         </p>
         <div className="row justify-content-between">
-          <NominalItem
-            _id="1"
-            coinQuantity={100}
-            coinName="Gold"
-            price={200000}
-          />
-          <NominalItem
-            _id="2"
-            coinQuantity={100}
-            coinName="Gold"
-            price={200000}
-          />
-
+          {nominals?.map((nominal) => (
+            <NominalItem
+              key={nominal?._id}
+              _id={nominal?._id}
+              coinQuantity={nominal?.coinQuantity}
+              coinName={nominal?.coinName}
+              price={nominal?.price}
+            />
+          ))}
           <div className="col-lg-4 col-sm-6">{/* <!-- Blank --> */}</div>
         </div>
       </div>
@@ -50,8 +55,16 @@ function TopUpForm() {
         </p>
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <PaymentItem bankID="321" type="Transfer" name="BCA" />
-            <PaymentItem bankID="421" type="Transfer" name="Mandiri" />
+            {payments?.map((payment) =>
+              payment?.banks?.map((bank: any) => (
+                <PaymentItem
+                  key={bank?._id}
+                  bankID={bank?._id}
+                  type={payment?.type}
+                  name={bank?.bankName}
+                />
+              ))
+            )}
 
             <div className="col-lg-4 col-sm-6">{/* <!-- Blank --> */}</div>
           </div>

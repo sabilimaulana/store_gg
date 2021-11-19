@@ -15,17 +15,19 @@ function Detail() {
       name: "",
     },
   });
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
 
   const getVoucherDetailApi = useCallback(async (id: string) => {
     const data = await getDetailVoucher(id);
     setDataItem(data?.detail);
+    setNominals(data?.detail?.nominals);
+    setPayments(data?.payment);
   }, []);
 
   useEffect(() => {
     if (isReady) {
       getVoucherDetailApi(String(query?.id));
-    } else {
-      console.log("Router belum tersedia");
     }
   }, [isReady]);
 
@@ -50,7 +52,7 @@ function Detail() {
               {/* <!-- Desktop: Game title --> */}
               <TopUpItem type="desktop" data={dataItem} />
               <hr />
-              <TopUpForm />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>
