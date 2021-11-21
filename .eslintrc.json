@@ -38,6 +38,7 @@
     "no-underscore-dangle": "off",
     "implicit-arrow-linebreak": "off",
     "comma-dangle": "off",
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }
