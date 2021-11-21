@@ -1,10 +1,24 @@
+import { GetServerSideProps } from "next";
 import Image from "next/image";
+import { FormEvent, useState } from "react";
+import { CategoryTypes } from "../../services/data-types";
+import { getGameCategories } from "../../services/player";
 
-function SignUpPhoto() {
+interface SignUpPhotoProps {
+  categories: CategoryTypes[];
+}
+
+function SignUpPhoto({ categories }: SignUpPhotoProps) {
+  const [favorite, setFavorite] = useState(categories[0]._id);
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">
-        <form action="">
+        <form action="" onSubmit={onSubmit}>
           <div className="form-input d-md-block d-flex flex-column">
             <div>
               <div className="mb-20">
@@ -40,26 +54,26 @@ function SignUpPhoto() {
                   name="category"
                   className="form-select d-block w-100 rounded-pill text-lg"
                   aria-label="Favorite Game"
+                  onChange={(e) => setFavorite(e.target.value)}
+                  value={favorite}
+                  required
                 >
-                  <option value="" disabled selected>
-                    Select Category
-                  </option>
-                  <option value="fps">First Person Shoter</option>
-                  <option value="rpg">Role Playing Game</option>
-                  <option value="arcade">Arcade</option>
-                  <option value="sport">Sport</option>
+                  {categories?.map((category: CategoryTypes) => (
+                    <option value={category._id} key={category._id}>
+                      {category?.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
             <div className="button-group d-flex flex-column mx-auto">
-              <a
+              <button
                 className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                href="/sign-up-photo-success"
-                role="button"
+                type="submit"
               >
                 Create My Account
-              </a>
+              </button>
 
               <a
                 className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
@@ -75,5 +89,11 @@ function SignUpPhoto() {
     </section>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await getGameCategories();
+
+  return { props: { categories: data } };
+};
 
 export default SignUpPhoto;

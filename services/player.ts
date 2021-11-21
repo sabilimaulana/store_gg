@@ -31,3 +31,17 @@ export async function getDetailVoucher(id: string) {
     return {};
   }
 }
+
+export async function getGameCategories() {
+  const ENDPOINT = "players/category";
+
+  try {
+    const response = await axios.get(`${ROOT_API}/${API_VERSION}/${ENDPOINT}`);
+    const axiosResponse = response.data;
+
+    return axiosResponse.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
