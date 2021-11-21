@@ -1,6 +1,10 @@
+/* eslint-disable quotes */
+/* eslint-disable react/jsx-curly-newline */
 import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+// import { useRouter } from "next/router";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { setSignUp } from "../../services/auth";
 import { CategoryTypes } from "../../services/data-types";
 import { getGameCategories } from "../../services/player";
 
@@ -9,11 +13,53 @@ interface SignUpPhotoProps {
 }
 
 function SignUpPhoto({ categories }: SignUpPhotoProps) {
-  const [favorite, setFavorite] = useState(categories[0]._id);
+  const [favorite, setFavorite] = useState<string>(categories[0]._id);
+  const [image, setImage] = useState<File>();
+  const [imagePreview, setImagePreview] = useState("");
+  const [userForm, setUserForm] = useState({
+    email: "",
+    name: "",
+    password: "",
+  });
 
-  const onSubmit = (e: FormEvent) => {
+  // const router = useRouter();
+
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const data = new FormData();
+
+    if (image) {
+      data.append("image", image);
+    }
+    data.append("email", userForm.email);
+    data.append("name", userForm.name);
+    data.append("password", userForm.password);
+    data.append("username", userForm.name);
+    data.append("phoneNumber", "0812345678");
+    data.append("role", "user");
+    data.append("status", "Y");
+    data.append("favorite", favorite);
+
+    await setSignUp(data);
+    // router.push("/");
   };
+
+  const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      const img = e.target.files[0];
+      setImagePreview(URL.createObjectURL(img));
+      setImage(e?.target?.files[0]);
+    }
+  };
+
+  useEffect(() => {
+    const userFormLocal = localStorage.getItem("user-form");
+
+    setUserForm(
+      JSON.parse(userFormLocal || `{"email":"","name":"","password":""}`)
+    );
+  }, []);
 
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
@@ -23,23 +69,29 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
             <div>
               <div className="mb-20">
                 <div className="image-upload text-center">
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                   <label htmlFor="avatar">
-                    <Image src="/icon/upload.svg" width={120} height={120} />
+                    <Image
+                      src={imagePreview || "/icon/upload.svg"}
+                      className="rounded rounded-circle image-upload"
+                      width={120}
+                      height={120}
+                    />
                   </label>
                   <input
                     id="avatar"
                     type="file"
                     name="avatar"
                     accept="image/png, image/jpeg"
+                    onChange={onChangeFile}
+                    // required
                   />
                 </div>
               </div>
               <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
-                Shayna Anne
+                {userForm.name}
               </h2>
               <p className="text-lg text-center color-palette-1 m-0">
-                shayna@anne.com
+                {userForm.email}
               </p>
               <div className="pt-50 pb-50">
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
