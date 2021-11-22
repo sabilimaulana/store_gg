@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { setSignIn } from "../../../services/auth";
@@ -15,13 +16,16 @@ function SignInForm() {
 
     const reqData = { email, password };
 
-    const { error, message } = await setSignIn(reqData);
+    const { error, message, data } = await setSignIn(reqData);
     if (error) {
       // toast.error("Email or password are wrong.");
       toast.error(message);
       return;
     }
 
+    const { token } = data;
+    const tokenBase64 = btoa(token);
+    Cookies.set("token", tokenBase64, { expires: 1 });
     router.push("/");
   };
 
