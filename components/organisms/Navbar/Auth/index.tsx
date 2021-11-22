@@ -1,11 +1,21 @@
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-interface AuthProps {
-  isLogin?: boolean;
-}
+function Auth() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [avatar, setAvatar] = useState("");
 
-function Auth(props: Partial<AuthProps>) {
-  const { isLogin = false } = props;
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (token) {
+      const { player }: any = jwtDecode(atob(token));
+      setAvatar(player.avatar);
+      setIsLogin(true);
+    }
+  }, []);
 
   if (isLogin) {
     return (
@@ -21,11 +31,15 @@ function Auth(props: Partial<AuthProps>) {
             aria-expanded="false"
           >
             <img
-              src="/img/avatar-1.png"
+              src={`${process.env.NEXT_PUBLIC_API}/uploads/${avatar}`}
               className="rounded-circle"
               width="40"
               height="40"
               alt=""
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/img/avatar.png";
+              }}
             />
           </a>
 

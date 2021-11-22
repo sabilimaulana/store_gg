@@ -42,8 +42,10 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
     data.append("status", "Y");
     data.append("favorite", favorite);
 
-    const { error, message } = await setSignUp(data);
+    const { error, message, data: responseData } = await setSignUp(data);
     if (error) return toast.error(message);
+
+    console.log(responseData);
 
     localStorage.removeItem("user-form");
     return router.push("/sign-up-success");
