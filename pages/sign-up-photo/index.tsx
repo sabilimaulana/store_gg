@@ -8,7 +8,6 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { setSignUp } from "../../services/auth";
 import { CategoryTypes } from "../../services/data-types";
 import { getGameCategories } from "../../services/player";
-import "react-toastify/dist/ReactToastify.css";
 
 interface SignUpPhotoProps {
   categories: CategoryTypes[];
