@@ -14,9 +14,8 @@ export async function setSignUp(data: any) {
     const axiosResponse = response.data;
 
     return axiosResponse.data;
-  } catch (error) {
-    console.log(error);
-    return {};
+  } catch (error: any) {
+    return error.response.data;
   }
 }
 

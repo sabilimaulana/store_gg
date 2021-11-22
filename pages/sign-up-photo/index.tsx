@@ -2,11 +2,13 @@
 /* eslint-disable react/jsx-curly-newline */
 import { GetServerSideProps } from "next";
 import Image from "next/image";
-// import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { setSignUp } from "../../services/auth";
 import { CategoryTypes } from "../../services/data-types";
 import { getGameCategories } from "../../services/player";
+import "react-toastify/dist/ReactToastify.css";
 
 interface SignUpPhotoProps {
   categories: CategoryTypes[];
@@ -22,7 +24,7 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
     password: "",
   });
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -41,8 +43,14 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
     data.append("status", "Y");
     data.append("favorite", favorite);
 
-    await setSignUp(data);
-    // router.push("/");
+    const result = await setSignUp(data);
+    if (result?.error === 1) {
+      toast.error(result?.message);
+      return;
+    }
+
+    localStorage.removeItem("user-form");
+    router.push("/sign-up-success");
   };
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -138,6 +146,7 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </section>
   );
 }
