@@ -4,6 +4,7 @@ import Footer from "../../components/organisms/Footer";
 import Navbar from "../../components/organisms/Navbar";
 import TopUpForm from "../../components/organisms/TopUpForm";
 import TopUpItem from "../../components/organisms/TopUpItem";
+import { NominalTypes, PaymentTypes } from "../../services/data-types";
 import { getDetailVoucher } from "../../services/player";
 
 function Detail() {
@@ -15,8 +16,8 @@ function Detail() {
       name: "",
     },
   });
-  const [nominals, setNominals] = useState([]);
-  const [payments, setPayments] = useState([]);
+  const [nominals, setNominals] = useState<NominalTypes[]>([]);
+  const [payments, setPayments] = useState<PaymentTypes[]>([]);
 
   const getVoucherDetailApi = useCallback(async (id: string) => {
     const data = await getDetailVoucher(id);

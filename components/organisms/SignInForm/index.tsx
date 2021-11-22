@@ -13,12 +13,12 @@ function SignInForm() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const data = { email, password };
+    const reqData = { email, password };
 
-    const { error, responseData } = await setSignIn(data);
+    const { error, message } = await setSignIn(reqData);
     if (error) {
       // toast.error("Email or password are wrong.");
-      toast.error(responseData);
+      toast.error(message);
       return;
     }
 

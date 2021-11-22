@@ -1,7 +1,6 @@
 export interface CategoryTypes {
   _id: string;
   name: string;
-  __v: number;
 }
 
 export interface GameItemTypes {
@@ -31,4 +30,21 @@ export interface NominalTypes {
   coinQuantity: number;
   coinName: string;
   price: number;
+}
+
+export interface UserTypes {
+  _id: string;
+  phoneNumber: string;
+  name: string;
+}
+
+export interface DetailVoucherTypes {
+  _id: string;
+  name: string;
+  category: CategoryTypes;
+  isFeatured: boolean;
+  status: string;
+  thumbnail: string;
+  user: UserTypes;
+  nominals: NominalTypes[];
 }

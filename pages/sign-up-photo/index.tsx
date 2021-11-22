@@ -42,14 +42,11 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
     data.append("status", "Y");
     data.append("favorite", favorite);
 
-    const result = await setSignUp(data);
-    if (result?.error === 1) {
-      toast.error(result?.message);
-      return;
-    }
+    const { error, message } = await setSignUp(data);
+    if (error) return toast.error(message);
 
     localStorage.removeItem("user-form");
-    router.push("/sign-up-success");
+    return router.push("/sign-up-success");
   };
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
