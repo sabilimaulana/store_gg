@@ -14,8 +14,6 @@ interface TopUpFormProps {
 function TopUpForm(props: TopUpFormProps) {
   const { nominals, payments } = props;
 
-  console.log(payments);
-
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">

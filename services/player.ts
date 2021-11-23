@@ -9,17 +9,21 @@ import {
 const ROOT_API = process.env.NEXT_PUBLIC_API;
 const API_VERSION = "api/v1";
 
-export async function getFeaturedGame(): Promise<GameItemTypes[]> {
+interface GetFeaturedGameReturnTypes {
+  gameList: GameItemTypes[];
+  error: boolean;
+}
+
+export async function getFeaturedGame(): Promise<GetFeaturedGameReturnTypes> {
   const ENDPOINT = "players/landingpage";
 
   try {
     const response = await axios.get(`${ROOT_API}/${API_VERSION}/${ENDPOINT}`);
     const axiosResponse = response.data;
 
-    return axiosResponse.data;
+    return { gameList: axiosResponse.data, error: false };
   } catch (error) {
-    console.log(error);
-    return [];
+    return { gameList: [], error: true };
   }
 }
 
@@ -40,7 +44,6 @@ export async function getDetailVoucher(
 
     return { ...axiosResponse.data, error: false };
   } catch (error) {
-    console.log(error);
     return {
       detail: {
         _id: "",

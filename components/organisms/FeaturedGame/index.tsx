@@ -1,20 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
 import { GameItemTypes } from "../../../services/data-types";
-import { getFeaturedGame } from "../../../services/player";
 import GameItem from "../../molecules/GameItem";
 
-function FeaturedGame() {
-  const [gameList, setGameList] = useState<GameItemTypes[]>([]);
+interface FeaturedGameProps {
+  gameList: readonly GameItemTypes[];
+}
 
-  const getFeaturedGameList = useCallback(async () => {
-    const data = await getFeaturedGame();
-    setGameList(data);
-  }, [getFeaturedGame]);
-
-  useEffect(() => {
-    getFeaturedGameList();
-  }, []);
-
+function FeaturedGame({ gameList }: FeaturedGameProps) {
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">

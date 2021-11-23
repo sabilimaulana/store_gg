@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Footer from "../../components/organisms/Footer";
 import Navbar from "../../components/organisms/Navbar";
 import TopUpForm from "../../components/organisms/TopUpForm";
@@ -7,33 +7,24 @@ import TopUpItem from "../../components/organisms/TopUpItem";
 import { NominalTypes, PaymentTypes } from "../../services/data-types";
 import { getDetailVoucher } from "../../services/player";
 
-function Detail() {
-  const { query, isReady } = useRouter();
-  const [dataItem, setDataItem] = useState({
-    name: "",
-    thumbnail: "",
+interface DetailProps {
+  nominals: NominalTypes[];
+  payments: PaymentTypes[];
+  dataItem: {
+    name: string;
+    thumbnail: string;
     category: {
-      name: "",
-    },
-  });
-  const [nominals, setNominals] = useState<NominalTypes[]>([]);
-  const [payments, setPayments] = useState<PaymentTypes[]>([]);
+      name: string;
+    };
+  };
+}
 
-  const getVoucherDetailApi = useCallback(async (id: string) => {
-    const data = await getDetailVoucher(id);
-    setDataItem(data?.detail);
-    setNominals(data?.detail?.nominals);
-    setPayments(data?.payment);
-  }, []);
-
-  useEffect(() => {
-    if (isReady) {
-      getVoucherDetailApi(String(query?.id));
-    }
-  }, [isReady]);
-
+function Detail({ nominals, payments, dataItem }: DetailProps) {
   return (
     <>
+      <Head>
+        <title>{`${dataItem.name} | Store GG`}</title>
+      </Head>
       <Navbar />
       <section className="detail pt-lg-60 pb-50">
         <div className="container-xxl container-fluid">
@@ -62,5 +53,24 @@ function Detail() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const data = await getDetailVoucher(String(ctx.query.id));
+  if (data.error) {
+    const { res } = ctx;
+    res.setHeader("location", "/404");
+    res.statusCode = 302;
+    res.end();
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      dataItem: data?.detail,
+      nominals: data?.detail?.nominals,
+      payments: data.payment,
+    },
+  };
+};
 
 export default Detail;
