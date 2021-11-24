@@ -34,8 +34,10 @@ export interface NominalTypes {
 
 export interface UserTypes {
   _id: string;
-  phoneNumber: string;
+  avatar: string;
   name: string;
+  username: string;
+  email: string;
 }
 
 export interface DetailVoucherTypes {

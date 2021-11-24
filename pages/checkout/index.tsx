@@ -1,10 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import CheckoutItem from "../../components/organisms/CheckoutItem";
-import CheckoutDetail from "../../components/organisms/CheckoutDetail";
-import CheckoutConfirmation from "../../components/organisms/CheckoutConfirmation";
+import { GetServerSideProps, NextPage } from "next";
+import jwtDecode from "jwt-decode";
+import { UserTypes } from "services/data-types";
+import CheckoutItem from "@organism/CheckoutItem";
+import CheckoutDetail from "@organism/CheckoutDetail";
+import CheckoutConfirmation from "@organism/CheckoutConfirmation";
+import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
-function Checkout() {
+interface CheckoutProps {
+  user: UserTypes;
+}
+
+const Checkout: NextPage<CheckoutProps> = ({ user }: CheckoutProps) => {
+  console.log(user);
+
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -28,6 +38,29 @@ function Checkout() {
       </div>
     </section>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { token }: NextApiRequestCookies = req.cookies;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const { player }: any = jwtDecode(
+    Buffer.from(token, "base64").toString("ascii")
+  );
+
+  return {
+    props: {
+      user: player,
+    },
+  };
+};
 
 export default Checkout;
