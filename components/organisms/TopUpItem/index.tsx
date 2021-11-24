@@ -30,7 +30,7 @@ function TopUpItem(props: TopUpItemProps) {
       <div className="col-md-12 col-4">
         {data.thumbnail && (
           <img
-            src={`${process.env.NEXT_PUBLIC_IMG}/${data.thumbnail}`}
+            src={data.thumbnail}
             width="280"
             height="380"
             className="img-fluid"

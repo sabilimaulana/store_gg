@@ -3,9 +3,9 @@ import Link from "next/link";
 import { GetServerSideProps, NextPage } from "next";
 import jwtDecode from "jwt-decode";
 import { UserTypes } from "services/data-types";
-import CheckoutItem from "@organism/CheckoutItem";
-import CheckoutDetail from "@organism/CheckoutDetail";
-import CheckoutConfirmation from "@organism/CheckoutConfirmation";
+import CheckoutItem from "@organisms/CheckoutItem";
+import CheckoutDetail from "@organisms/CheckoutDetail";
+import CheckoutConfirmation from "@organisms/CheckoutConfirmation";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
 interface CheckoutProps {

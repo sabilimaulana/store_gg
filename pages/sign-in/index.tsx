@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import SignInForm from "../../components/organisms/SignInForm";
+import SignInForm from "@organisms/SignInForm";
 
 function SignIn() {
   return (

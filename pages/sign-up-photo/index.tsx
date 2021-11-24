@@ -6,9 +6,10 @@ import Head from "next/head";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { setSignUp } from "../../services/auth";
-import { CategoryTypes } from "../../services/data-types";
-import { getGameCategories } from "../../services/player";
+import { setSignUp } from "@services/auth";
+import { CategoryTypes } from "@services/data-types";
+import { getGameCategories } from "@services/player";
+import Cookies from "js-cookie";
 
 interface SignUpPhotoProps {
   categories: CategoryTypes[];
@@ -46,7 +47,9 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
     const { error, message, data: responseData } = await setSignUp(data);
     if (error) return toast.error(message);
 
-    console.log(responseData);
+    const { token } = responseData;
+    const tokenBase64 = btoa(token);
+    Cookies.set("token", tokenBase64, { expires: 1 });
 
     localStorage.removeItem("user-form");
     return router.push("/sign-up-success");

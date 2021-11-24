@@ -2,15 +2,15 @@ import { useEffect } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import AOS from "aos";
 import Head from "next/head";
-import Navbar from "../components/organisms/Navbar";
-import MainBanner from "../components/organisms/MainBanner";
-import TransactionStep from "../components/organisms/TransactionStep";
-import FeaturedGame from "../components/organisms/FeaturedGame";
-import Reached from "../components/organisms/Reached";
-import Story from "../components/organisms/Story";
-import Footer from "../components/organisms/Footer";
-import { GameItemTypes } from "../services/data-types";
-import { getFeaturedGame } from "../services/player";
+import Navbar from "@organisms/Navbar";
+import MainBanner from "@organisms/MainBanner";
+import TransactionStep from "@organisms/TransactionStep";
+import FeaturedGame from "@organisms/FeaturedGame";
+import Reached from "@organisms/Reached";
+import Story from "@organisms/Story";
+import Footer from "@organisms/Footer";
+import { GameItemTypes } from "@services/data-types";
+import { getFeaturedGame } from "@services/player";
 
 interface HomeProps {
   gameList: GameItemTypes[];

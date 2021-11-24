@@ -1,11 +1,11 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import Footer from "../../components/organisms/Footer";
-import Navbar from "../../components/organisms/Navbar";
-import TopUpForm from "../../components/organisms/TopUpForm";
-import TopUpItem from "../../components/organisms/TopUpItem";
-import { NominalTypes, PaymentTypes } from "../../services/data-types";
-import { getDetailVoucher } from "../../services/player";
+import Footer from "@organisms/Footer";
+import Navbar from "@organisms/Navbar";
+import TopUpForm from "@organisms/TopUpForm";
+import TopUpItem from "@organisms/TopUpItem";
+import { NominalTypes, PaymentTypes } from "@services/data-types";
+import { getDetailVoucher } from "@services/player";
 
 interface DetailProps {
   nominals: NominalTypes[];

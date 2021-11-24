@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["sbl-store-gg.herokuapp.com"],
+    domains: ["res.cloudinary.com"],
   },
 };

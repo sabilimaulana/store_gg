@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import SignUpForm from "../../components/organisms/SignUpForm";
+import SignUpForm from "@organisms/SignUpForm";
 
 function SignUp() {
   return (

@@ -24,7 +24,7 @@ function FeaturedGame({ gameList }: FeaturedGameProps) {
               key={game?._id}
               title={game?.name}
               category={game?.category?.name}
-              thumbnail={`${process.env.NEXT_PUBLIC_IMG}/${game.thumbnail}`}
+              thumbnail={game.thumbnail}
             />
           ))}
         </div>

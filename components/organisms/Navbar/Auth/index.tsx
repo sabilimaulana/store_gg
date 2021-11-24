@@ -41,7 +41,7 @@ function Auth() {
             aria-expanded="false"
           >
             <img
-              src={`${process.env.NEXT_PUBLIC_API}/uploads/${avatar}`}
+              src={avatar}
               className="rounded-circle"
               width="40"
               height="40"
