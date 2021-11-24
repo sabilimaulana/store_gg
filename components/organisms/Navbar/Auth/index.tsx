@@ -1,11 +1,21 @@
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import Link from "next/link";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 function Auth() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [avatar, setAvatar] = useState("");
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState<string>("");
+
+  const router: NextRouter = useRouter();
+
+  const onLogout = () => {
+    Cookies.remove("token");
+    setAvatar("");
+    setIsLogin(false);
+    router.push("/");
+  };
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -67,9 +77,13 @@ function Auth() {
               </Link>
             </li>
             <li>
-              <Link href="/sign-in">
-                <a className="dropdown-item text-lg color-palette-2">Log Out</a>
-              </Link>
+              <button
+                type="button"
+                className="dropdown-item text-lg color-palette-2"
+                onClick={onLogout}
+              >
+                Log Out
+              </button>
             </li>
           </ul>
         </div>
