@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { ToastContainer } from "react-toastify";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -56,6 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       {/*  eslint-disable-next-line react/jsx-props-no-spreading */}
       <Component {...pageProps} />
+      <ToastContainer />
     </>
   );
 }

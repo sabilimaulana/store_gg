@@ -3,7 +3,7 @@
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Head from "next/head";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { setSignUp } from "@services/auth";
@@ -152,7 +152,6 @@ function SignUpPhoto({ categories }: SignUpPhotoProps) {
             </div>
           </form>
         </div>
-        <ToastContainer />
       </section>
     </>
   );
