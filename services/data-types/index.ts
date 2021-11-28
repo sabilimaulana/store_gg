@@ -50,3 +50,10 @@ export interface DetailVoucherTypes {
   user: UserTypes;
   nominals: NominalTypes[];
 }
+
+export interface DataTopup {
+  verifyID: string;
+  nominalItem: NominalTypes;
+  paymentItem: { payment: PaymentTypes; bank: BankTypes };
+  bankAccountName: string;
+}

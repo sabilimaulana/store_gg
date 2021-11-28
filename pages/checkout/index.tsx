@@ -17,9 +17,7 @@ const Checkout: NextPage<CheckoutProps> = ({ user }: CheckoutProps) => (
     <div className="container-fluid">
       <div className="logo text-md-center text-start pb-50">
         <Link href="/">
-          <a>
-            <Image src="/icon/logo.svg" width={60} height={60} alt="logo" />
-          </a>
+          <Image src="/icon/logo.svg" width={60} height={60} alt="logo" />
         </Link>
       </div>
       <div className="title-text pt-md-50 pt-0">

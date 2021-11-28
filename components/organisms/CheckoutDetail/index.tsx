@@ -1,21 +1,9 @@
-import {
-  BankTypes,
-  NominalTypes,
-  PaymentTypes,
-  UserTypes,
-} from "@services/data-types";
+import { DataTopup, UserTypes } from "@services/data-types";
 import { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 
 interface CheckoutDetailProps {
   user: UserTypes;
-}
-
-interface DataTopup {
-  verifyID: string;
-  nominalItem: NominalTypes;
-  paymentItem: { payment: PaymentTypes; bank: BankTypes };
-  bankAccountName: string;
 }
 
 function CheckoutDetail({ user }: CheckoutDetailProps) {
