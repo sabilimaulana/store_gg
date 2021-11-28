@@ -6,6 +6,7 @@ import TopUpForm from "@organisms/TopUpForm";
 import TopUpItem from "@organisms/TopUpItem";
 import { NominalTypes, PaymentTypes } from "@services/data-types";
 import { getDetailVoucher } from "@services/player";
+import { useEffect } from "react";
 
 interface DetailProps {
   nominals: NominalTypes[];
@@ -20,6 +21,10 @@ interface DetailProps {
 }
 
 function Detail({ nominals, payments, dataItem }: DetailProps) {
+  useEffect(() => {
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
+  });
+
   return (
     <>
       <Head>
