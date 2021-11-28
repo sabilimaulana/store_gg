@@ -34,7 +34,7 @@ function NominalItem({
         <div className="d-flex justify-content-between">
           <p className="text-3xl color-palette-1 m-0">
             <span className="fw-medium">{coinQuantity}</span>
-            {coinName}
+            {` ${coinName}`}
           </p>
           <svg
             id="icon-check"
