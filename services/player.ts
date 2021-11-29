@@ -1,6 +1,8 @@
 import axios from "axios";
+import callAPI from "config/api";
 import {
   CategoryTypes,
+  CheckoutData,
   DetailVoucherTypes,
   GameItemTypes,
   PaymentTypes,
@@ -52,7 +54,7 @@ export async function getDetailVoucher(
         isFeatured: false,
         status: "",
         thumbnail: "",
-        user: { _id: "", phoneNumber: "", name: "" },
+        user: { _id: "", name: "", avatar: "", email: "", username: "" },
         nominals: [],
       },
       payment: [],
@@ -73,4 +75,15 @@ export async function getGameCategories(): Promise<CategoryTypes[]> {
     console.log(error);
     return [];
   }
+}
+
+export async function setCheckout(data: CheckoutData) {
+  const ENDPOINT = `${ROOT_API}/${API_VERSION}/players/checkout`;
+
+  return callAPI({
+    url: ENDPOINT,
+    data,
+    method: "POST",
+    token: true,
+  });
 }

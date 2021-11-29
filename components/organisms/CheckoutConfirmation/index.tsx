@@ -1,11 +1,19 @@
-import { DataTopup, DetailVoucherTypes } from "@services/data-types";
+import {
+  CheckoutData,
+  DataTopup,
+  DetailVoucherTypes,
+} from "@services/data-types";
+import { setCheckout } from "@services/player";
+import { NextRouter, useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 function CheckoutConfirmation() {
   const [confirm, setConfirm] = useState<boolean>(false);
 
-  const onSubmit = (): void => {
+  const router: NextRouter = useRouter();
+
+  const onSubmit = async (): Promise<void> => {
     if (!confirm) {
       toast.error(
         "Silahkan klik pada checkbox jika anda telah mentransfer uangnya"
@@ -24,7 +32,7 @@ function CheckoutConfirmation() {
       localStorage.getItem("data-item") || "{}"
     );
 
-    const data = {
+    const reqData: CheckoutData = {
       voucher: dataItem._id,
       nominal: nominalItem._id,
       payment: paymentItem.payment._id,
@@ -33,7 +41,13 @@ function CheckoutConfirmation() {
       accountUser: verifyID,
     };
 
-    console.log(data);
+    const { error, message } = await setCheckout(reqData);
+    if (error) {
+      toast.error(message);
+      return;
+    }
+
+    router.push("/complete-checkout");
   };
 
   return (
