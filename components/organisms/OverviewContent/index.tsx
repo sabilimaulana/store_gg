@@ -10,9 +10,22 @@ interface Count {
   value: number;
 }
 
+interface History {
+  _id: string;
+  historyVoucherTopup: {
+    gameName: string;
+    category: string;
+    coinQuantity: string;
+    coinName: string;
+    thumbnail: string;
+  };
+  status: string;
+  value: number;
+}
+
 function OverviewContent() {
   const [counts, setCounts] = useState<Count[]>([]);
-  const [history, setHistory] = useState();
+  const [history, setHistory] = useState<History[]>([]);
 
   const getMemberOverviewApi = async () => {
     const { error, message, data } = await getMemberOverview();
@@ -39,7 +52,7 @@ function OverviewContent() {
           <div className="main-content">
             <div className="row">
               {counts.map((item) => (
-                <Category icon="ic-desktop" nominal={item.value}>
+                <Category icon="ic-desktop" nominal={item.value} key={item._id}>
                   Game
                   <br />
                   {item.name}
@@ -65,38 +78,19 @@ function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                <TableRow
-                  title="Mobile Legends: The New Battle 2021"
-                  category="Mobile"
-                  item={200}
-                  price={290000}
-                  status="Pending"
-                  image="overview-1"
-                />
-                <TableRow
-                  title="Call of Duty:Modern"
-                  category="Desktop"
-                  item={550}
-                  price={740000}
-                  status="Success"
-                  image="overview-2"
-                />
-                <TableRow
-                  title="Clash of Clans"
-                  category="Mobile"
-                  item={100}
-                  price={120000}
-                  status="Failed"
-                  image="overview-3"
-                />
-                <TableRow
-                  title="The Royal Game"
-                  category="Mobile"
-                  item={225}
-                  price={200000}
-                  status="Pending"
-                  image="overview-4"
-                />
+                {history.map((item) => (
+                  <TableRow
+                    title={item.historyVoucherTopup.gameName}
+                    category={item.historyVoucherTopup.category}
+                    item={`
+                      ${item.historyVoucherTopup.coinQuantity}
+                      ${item.historyVoucherTopup.coinName}`}
+                    price={item.value}
+                    status={item.status}
+                    image={item.historyVoucherTopup.thumbnail}
+                    key={item._id}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
