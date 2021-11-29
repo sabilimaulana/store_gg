@@ -1,7 +1,33 @@
+import { getMemberOverview } from "@services/player";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Category from "./Category";
 import TableRow from "./TableRow";
 
+interface Count {
+  _id: string;
+  name: string;
+  value: number;
+}
+
 function OverviewContent() {
+  const [counts, setCounts] = useState<Count[]>([]);
+  const [history, setHistory] = useState();
+
+  const getMemberOverviewApi = async () => {
+    const { error, message, data } = await getMemberOverview();
+    if (error) {
+      toast.error(message);
+    }
+
+    setCounts(data.count);
+    setHistory(data.history);
+  };
+
+  useEffect(() => {
+    getMemberOverviewApi();
+  }, []);
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -12,21 +38,13 @@ function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              <Category icon="ic-desktop" nominal={18500000}>
-                Game
-                <br />
-                Desktop
-              </Category>
-              <Category icon="ic-mobile" nominal={8455000}>
-                Game
-                <br />
-                Mobile
-              </Category>
-              <Category icon="ic-mobile" nominal={5000000}>
-                Others
-                <br />
-                Category
-              </Category>
+              {counts.map((item) => (
+                <Category icon="ic-desktop" nominal={item.value}>
+                  Game
+                  <br />
+                  {item.name}
+                </Category>
+              ))}
             </div>
           </div>
         </div>
