@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import Link from "next/link";
@@ -40,16 +41,12 @@ function Auth() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              src={avatar}
+            <Image
+              src={avatar || "/img/avatar.png"}
               className="rounded-circle"
-              width="40"
-              height="40"
-              alt=""
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "/img/avatar.png";
-              }}
+              width={40}
+              height={40}
+              alt="avatar"
             />
           </a>
 
