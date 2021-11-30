@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,10 +17,11 @@ interface MenuItemProps {
     | "ic-menu-transactions";
   active?: boolean;
   href: string;
+  onClick: () => void;
 }
 
 function MenuItem(props: Partial<MenuItemProps>) {
-  const { title, icon, active = false, href = "/" } = props;
+  const { title, icon, active = false, href = "/", onClick } = props;
 
   const classMenuItem = cx({
     "item": true,
@@ -27,15 +30,19 @@ function MenuItem(props: Partial<MenuItemProps>) {
   });
 
   return (
-    <div className={classMenuItem}>
+    <div className={classMenuItem} onClick={onClick}>
       <div className="icon me-3 d-flex align-items-center">
         <Image src={`/icon/${icon}.svg`} width={25} height={25} />
       </div>
 
       <p className="item-title m-0">
-        <Link href={href}>
+        {onClick ? (
           <a className="text-lg text-decoration-none">{title}</a>
-        </Link>
+        ) : (
+          <Link href={href}>
+            <a className="text-lg text-decoration-none">{title}</a>
+          </Link>
+        )}
       </p>
     </div>
   );
