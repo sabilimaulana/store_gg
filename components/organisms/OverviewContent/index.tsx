@@ -1,5 +1,5 @@
 import { getMemberOverview } from "@services/player";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Category from "./Category";
 import TableRow from "./TableRow";
@@ -10,24 +10,26 @@ interface Count {
   value: number;
 }
 
-interface History {
+interface HistoryVoucherTopup {
+  gameName: string;
+  category: string;
+  coinQuantity: string;
+  coinName: string;
+  thumbnail: string;
+}
+
+interface HistoryTransaction {
   _id: string;
-  historyVoucherTopup: {
-    gameName: string;
-    category: string;
-    coinQuantity: string;
-    coinName: string;
-    thumbnail: string;
-  };
+  historyVoucherTopup: HistoryVoucherTopup;
   status: string;
   value: number;
 }
 
 function OverviewContent() {
   const [counts, setCounts] = useState<Count[]>([]);
-  const [history, setHistory] = useState<History[]>([]);
+  const [history, setHistory] = useState<HistoryTransaction[]>([]);
 
-  const getMemberOverviewApi = async () => {
+  const getMemberOverviewApi = useCallback(async (): Promise<void> => {
     const { error, message, data } = await getMemberOverview();
     if (error) {
       toast.error(message);
@@ -35,7 +37,7 @@ function OverviewContent() {
 
     setCounts(data.count);
     setHistory(data.history);
-  };
+  }, []);
 
   useEffect(() => {
     getMemberOverviewApi();

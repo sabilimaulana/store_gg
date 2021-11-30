@@ -29,10 +29,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     Buffer.from(token, "base64").toString("ascii")
   );
 
+  if (!player) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
   return {
-    props: {
-      user: player,
-    },
+    props: {},
   };
 };
 
