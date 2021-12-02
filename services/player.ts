@@ -87,13 +87,3 @@ export async function setCheckout(data: CheckoutData) {
     token: true,
   });
 }
-
-export async function getMemberOverview() {
-  const ENDPOINT = `${ROOT_API}/${API_VERSION}/players/dashboard`;
-
-  return callAPI({
-    url: ENDPOINT,
-    method: "GET",
-    token: true,
-  });
-}
