@@ -23,9 +23,10 @@ interface HistoryTransaction {
 function TransactionsContent() {
   const [total, setTotal] = useState(0);
   const [transactions, setTransactions] = useState<HistoryTransaction[]>([]);
+  const [tab, setTab] = useState("all");
 
-  const getMemberTransactionsApi = useCallback(async () => {
-    const { data, error, message } = await getMemberTransactions();
+  const getMemberTransactionsApi = useCallback(async (value: string) => {
+    const { data, error, message } = await getMemberTransactions(value);
     if (error) {
       toast.error(message);
       return;
@@ -36,8 +37,14 @@ function TransactionsContent() {
   }, []);
 
   useEffect(() => {
-    getMemberTransactionsApi();
+    getMemberTransactionsApi("all");
   }, []);
+
+  const onTabClick = async (value: string) => {
+    setTab(value);
+
+    getMemberTransactionsApi(value);
+  };
 
   return (
     <main className="main-wrapper">
@@ -60,10 +67,26 @@ function TransactionsContent() {
         <div className="row mt-30 mb-20">
           <div className="col-lg-12 col-12 main-content">
             <div id="list_status_title">
-              <ButtonTab title="All Trx" active />
-              <ButtonTab title="Success" />
-              <ButtonTab title="Pending" />
-              <ButtonTab title="Failed" />
+              <ButtonTab
+                title="All Trx"
+                active={tab === "all"}
+                onClick={() => onTabClick("all")}
+              />
+              <ButtonTab
+                title="Success"
+                active={tab === "success"}
+                onClick={() => onTabClick("success")}
+              />
+              <ButtonTab
+                title="Pending"
+                active={tab === "pending"}
+                onClick={() => onTabClick("pending")}
+              />
+              <ButtonTab
+                title="Failed"
+                active={tab === "failed"}
+                onClick={() => onTabClick("failed")}
+              />
             </div>
           </div>
         </div>
