@@ -4,6 +4,7 @@ import Image from "next/image";
 import NumberFormat from "react-number-format";
 
 interface TableRowProps {
+  id: string;
   image: string;
   title: string;
   category: string;
@@ -13,7 +14,7 @@ interface TableRowProps {
 }
 
 function TableRow(props: TableRowProps) {
-  const { image, title, category, item, price, status } = props;
+  const { id, image, title, category, item, price, status } = props;
 
   const statusClass = cx({
     "float-start icon-status": true,
@@ -66,7 +67,7 @@ function TableRow(props: TableRowProps) {
         </div>
       </td>
       <td>
-        <Link href="/member/transactions/detail">
+        <Link href={`/member/transactions/${id}`}>
           <a className="btn btn-status rounded-pill text-sm">Details</a>
         </Link>
       </td>

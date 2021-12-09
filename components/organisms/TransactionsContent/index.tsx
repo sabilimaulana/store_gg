@@ -110,6 +110,7 @@ function TransactionsContent() {
               <tbody id="list_status_item">
                 {transactions.map((transaction) => (
                   <TableRow
+                    id={transaction._id}
                     title={transaction.historyVoucherTopup.gameName}
                     category={transaction.historyVoucherTopup.category}
                     item={`
