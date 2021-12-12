@@ -8,9 +8,22 @@ interface TransactionDetailContentProps {
 }
 
 function TransactionDetailContent({ data }: TransactionDetailContentProps) {
+  const {
+    _id,
+    historyVoucherTopup,
+    status,
+    historyPayment,
+    value,
+    tax,
+    accountUser,
+  } = data;
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
+        <h2 className="text-4xl fw-bold color-palette-1 mb-30">
+          {`Details ${_id}`}
+        </h2>
         <h2 className="text-4xl fw-bold color-palette-1 mb-30">Details</h2>
         <div className="details">
           <div className="main-content main-content-card overflow-auto">
@@ -20,7 +33,7 @@ function TransactionDetailContent({ data }: TransactionDetailContentProps) {
                   <div className="pe-4">
                     <div className="cropped">
                       <img
-                        src={data.historyVoucherTopup.thumbnail}
+                        src={historyVoucherTopup.thumbnail}
                         width="200"
                         height="130"
                         className="img-fluid"
@@ -30,16 +43,16 @@ function TransactionDetailContent({ data }: TransactionDetailContentProps) {
                   </div>
                   <div>
                     <p className="fw-bold text-xl color-palette-1 mb-10">
-                      {data.historyVoucherTopup.gameName}
+                      {historyVoucherTopup.gameName}
                     </p>
                     <p className="color-palette-2 m-0">
-                      {`Category: ${data.historyVoucherTopup.category}`}
+                      {`Category: ${historyVoucherTopup.category}`}
                     </p>
                   </div>
                 </div>
                 <div>
                   <p className="fw-medium text-center label pending m-0 rounded-pill">
-                    {data.status}
+                    {status}
                   </p>
                 </div>
               </div>
@@ -48,17 +61,17 @@ function TransactionDetailContent({ data }: TransactionDetailContentProps) {
                 <h2 className="fw-bold text-xl color-palette-1 mb-20">
                   Purchase Details
                 </h2>
-                <Row label="Your Game ID" value={data.accountUser} />
-                <Row label="Order ID" value={data._id} />
+                <Row label="Your Game ID" value={accountUser} />
+                <Row label="Order ID" value={_id} />
                 <Row
                   label="Item"
-                  value={`${data.historyVoucherTopup.coinQuantity} ${data.historyVoucherTopup.coinName}`}
+                  value={`${historyVoucherTopup.coinQuantity} ${historyVoucherTopup.coinName}`}
                 />
                 <Row
                   label="Price"
                   value={
                     <NumberFormat
-                      value={data.historyVoucherTopup.price}
+                      value={historyVoucherTopup.price}
                       prefix="Rp. "
                       displayType="text"
                       thousandSeparator="."
@@ -70,7 +83,7 @@ function TransactionDetailContent({ data }: TransactionDetailContentProps) {
                   label="Tax (10%)"
                   value={
                     <NumberFormat
-                      value={data.tax}
+                      value={tax}
                       prefix="Rp. "
                       displayType="text"
                       thousandSeparator="."
@@ -82,7 +95,7 @@ function TransactionDetailContent({ data }: TransactionDetailContentProps) {
                   label="Total"
                   value={
                     <NumberFormat
-                      value={data.value}
+                      value={value}
                       prefix="Rp. "
                       displayType="text"
                       thousandSeparator="."
@@ -96,17 +109,11 @@ function TransactionDetailContent({ data }: TransactionDetailContentProps) {
                 <h2 className="fw-bold text-xl color-palette-1 mb-20">
                   Payment Informations
                 </h2>
-                <Row label="Your Account Name" value={data.accountUser} />
-                <Row label="Type" value={data.historyPayment.type} />
-                <Row label="Bank Name" value={data.historyPayment.bankName} />
-                <Row
-                  label="Bank Account Name"
-                  value={data.historyPayment.name}
-                />
-                <Row
-                  label="Bank Number"
-                  value={data.historyPayment.noRekening}
-                />
+                <Row label="Your Account Name" value={accountUser} />
+                <Row label="Type" value={historyPayment.type} />
+                <Row label="Bank Name" value={historyPayment.bankName} />
+                <Row label="Bank Account Name" value={historyPayment.name} />
+                <Row label="Bank Number" value={historyPayment.noRekening} />
               </div>
               <div className="d-md-block d-flex flex-column w-100">
                 <a
