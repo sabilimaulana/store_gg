@@ -1,5 +1,7 @@
 export interface InputProps {
   label: string;
+  disabled?: boolean;
+  value?: any;
 }
 
 function Input(props: InputProps) {

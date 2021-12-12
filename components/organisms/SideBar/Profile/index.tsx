@@ -26,7 +26,7 @@ function Profile() {
         src={user.avatar || "/img/avatar.png"}
         width={90}
         height={90}
-        className="img-fluid mb-20 rounded-circle "
+        className="img-fluid mb-20 rounded-circle"
         alt="Avatar"
       />
       <h2 className="fw-bold text-xl color-palette-1 m-0">{user.name}</h2>
