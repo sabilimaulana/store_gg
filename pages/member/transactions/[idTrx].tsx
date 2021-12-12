@@ -1,3 +1,4 @@
+import { HistoryTransaction } from "@services/data-types";
 import { getTransactionDetail } from "@services/member";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps } from "next";
@@ -5,14 +6,15 @@ import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import SideBar from "../../../components/organisms/SideBar";
 import TransactionDetailContent from "../../../components/organisms/TransactionDetailContent";
 
-interface transactionDetail {}
+interface transactionDetailProps {
+  transactionDetail: HistoryTransaction;
+}
 
-function TransactionsDetail({ transactionDetail }) {
-  console.log(transactionDetail);
+function TransactionsDetail({ transactionDetail }: transactionDetailProps) {
   return (
     <section className="transactions-detail overflow-auto">
       <SideBar activeMenu="transactions" />
-      <TransactionDetailContent />
+      <TransactionDetailContent data={transactionDetail} />
     </section>
   );
 }
@@ -52,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const { idTrx } = params;
-  const { data, error, message } = await getTransactionDetail(
+  const { data, error } = await getTransactionDetail(
     String(idTrx),
     Buffer.from(token, "base64").toString("ascii")
   );

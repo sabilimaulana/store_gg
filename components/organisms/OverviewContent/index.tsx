@@ -1,3 +1,4 @@
+import { HistoryTransaction } from "@services/data-types";
 import { getMemberOverview } from "@services/member";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -7,21 +8,6 @@ import TableRow from "./TableRow";
 interface Count {
   _id: string;
   name: string;
-  value: number;
-}
-
-interface HistoryVoucherTopup {
-  gameName: string;
-  category: string;
-  coinQuantity: string;
-  coinName: string;
-  thumbnail: string;
-}
-
-interface HistoryTransaction {
-  _id: string;
-  historyVoucherTopup: HistoryVoucherTopup;
-  status: string;
   value: number;
 }
 

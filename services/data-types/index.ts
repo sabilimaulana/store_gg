@@ -66,3 +66,29 @@ export interface CheckoutData {
   name: string;
   accountUser: string;
 }
+
+export interface HistoryVoucherTopup {
+  gameName: string;
+  category: string;
+  coinQuantity: string;
+  coinName: string;
+  thumbnail: string;
+  price: number;
+}
+
+export interface HistoryPayment {
+  bankName: string;
+  name: string;
+  noRekening: string;
+  type: string;
+}
+
+export interface HistoryTransaction {
+  _id: string;
+  accountUser: string;
+  historyVoucherTopup: HistoryVoucherTopup;
+  status: string;
+  value: number;
+  tax: number;
+  historyPayment: HistoryPayment;
+}

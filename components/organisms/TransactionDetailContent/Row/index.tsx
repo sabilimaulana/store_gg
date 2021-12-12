@@ -1,6 +1,8 @@
+import { ReactElement } from "react";
+
 interface RowProps {
   label: string;
-  value: string | number;
+  value: string | number | ReactElement;
   className?: string;
 }
 
