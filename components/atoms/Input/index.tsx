@@ -1,7 +1,11 @@
+import { ChangeEventHandler } from "react";
+
 export interface InputProps {
   label: string;
   disabled?: boolean;
   value?: any;
+  // eslint-disable-next-line no-unused-vars
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 function Input(props: InputProps) {
