@@ -1,17 +1,20 @@
+import { updateProfile } from "@services/member";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   ChangeEventHandler,
   FormEventHandler,
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 import Input from "../../../components/atoms/Input";
 import SideBar from "../../../components/organisms/SideBar";
 
 export interface UserTypes {
-  _id: string;
+  id: string;
   avatar: string | File;
   name: string;
   username: string;
@@ -20,6 +23,7 @@ export interface UserTypes {
 
 function EditProfile() {
   const [user, setUser] = useState<Partial<UserTypes>>({
+    id: "",
     avatar: "",
     name: "",
     email: "",
@@ -47,9 +51,27 @@ function EditProfile() {
     }
   };
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const router = useRouter();
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    console.log(user);
+
+    const reqData = new FormData();
+    if (!user.avatar || !user.name) {
+      return;
+    }
+
+    reqData.append("image", user.avatar);
+    reqData.append("name", user.name);
+
+    const { error, message } = await updateProfile(reqData);
+    if (error) {
+      toast.error(message);
+      return;
+    }
+
+    Cookies.remove("token");
+    router.push("/sign-in");
   };
 
   return (

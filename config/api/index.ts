@@ -32,7 +32,6 @@ export default async function callAPI({
     data,
     headers,
   }).catch((error: any) => error?.response);
-
   if (response.status >= 300) {
     const res = {
       error: true,
