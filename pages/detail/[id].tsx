@@ -1,11 +1,11 @@
-import { GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Footer from "@organisms/Footer";
 import Navbar from "@organisms/Navbar";
 import TopUpForm from "@organisms/TopUpForm";
 import TopUpItem from "@organisms/TopUpItem";
 import { NominalTypes, PaymentTypes } from "@services/data-types";
-import { getDetailVoucher } from "@services/player";
+import { getDetailVoucher, getFeaturedGame } from "@services/player";
 import { useEffect } from "react";
 
 interface DetailProps {
@@ -59,15 +59,28 @@ function Detail({ nominals, payments, dataItem }: DetailProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const data = await getDetailVoucher(String(ctx.query.id));
-  if (data.error) {
-    const { res } = ctx;
-    res.setHeader("location", "/404");
-    res.statusCode = 302;
-    res.end();
-    return { props: {} };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { gameList } = await getFeaturedGame();
+  const paths = gameList.map((item) => ({ params: { id: item._id } }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { id } = params || { id: "" };
+  console.log(id);
+  if (!id) {
+    return {
+      redirect: {
+        destination: "/404",
+      },
+      props: {},
+    };
   }
+  const data = await getDetailVoucher(String(id));
 
   return {
     props: {
@@ -77,5 +90,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   };
 };
+
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const data = await getDetailVoucher(String(ctx.query.id));
+//   if (data.error) {
+//     const { res } = ctx;
+//     res.setHeader("location", "/404");
+//     res.statusCode = 302;
+//     res.end();
+//     return { props: {} };
+//   }
+
+//   return {
+//     props: {
+//       dataItem: data?.detail,
+//       nominals: data?.detail?.nominals,
+//       payments: data.payment,
+//     },
+//   };
+// };
 
 export default Detail;
