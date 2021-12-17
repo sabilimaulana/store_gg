@@ -71,7 +71,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params || { id: "" };
-  console.log(id);
+
   if (!id) {
     return {
       redirect: {
