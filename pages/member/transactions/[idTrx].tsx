@@ -1,10 +1,10 @@
+import SideBar from "@organisms/SideBar";
+import TransactionDetailContent from "@organisms/TransactionDetailContent";
 import { HistoryTransaction } from "@services/data-types";
 import { getTransactionDetail } from "@services/member";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps } from "next";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
-import SideBar from "../../../components/organisms/SideBar";
-import TransactionDetailContent from "../../../components/organisms/TransactionDetailContent";
 
 interface transactionDetailProps {
   transactionDetail: HistoryTransaction;

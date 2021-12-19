@@ -1,4 +1,4 @@
-import ReachedItem from "../../molecules/ReachedItem";
+import ReachedItem from "@molecules/ReachedItem";
 
 function Reached() {
   return (

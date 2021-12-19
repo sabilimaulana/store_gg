@@ -1,5 +1,5 @@
+import GameItem from "@molecules/GameItem";
 import { GameItemTypes } from "../../../services/data-types";
-import GameItem from "../../molecules/GameItem";
 
 interface FeaturedGameProps {
   gameList: readonly GameItemTypes[];

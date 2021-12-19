@@ -1,8 +1,8 @@
+import OverviewContent from "@organisms/OverviewContent";
+import SideBar from "@organisms/SideBar";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps } from "next";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
-import OverviewContent from "../../components/organisms/OverviewContent";
-import SideBar from "../../components/organisms/SideBar";
 
 function Member() {
   return (

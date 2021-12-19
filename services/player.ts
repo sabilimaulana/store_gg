@@ -72,7 +72,6 @@ export async function getGameCategories(): Promise<CategoryTypes[]> {
 
     return axiosResponse.data;
   } catch (error) {
-    console.log(error);
     return [];
   }
 }

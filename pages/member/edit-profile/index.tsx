@@ -1,3 +1,5 @@
+import Input from "@atoms/Input";
+import SideBar from "@organisms/SideBar";
 import { updateProfile } from "@services/member";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
@@ -10,8 +12,6 @@ import {
   useState,
 } from "react";
 import { toast } from "react-toastify";
-import Input from "../../../components/atoms/Input";
-import SideBar from "../../../components/organisms/SideBar";
 
 export interface UserTypes {
   id: string;
